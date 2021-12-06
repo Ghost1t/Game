@@ -14,5 +14,6 @@ namespace Game
         public string Confrontation { get; set; }
         public string Name { get; set; }
         public int Initiative { get; set; }
+        public bool Big { get; set; }
     }
 }
