@@ -33,12 +33,13 @@ namespace Game
             darkness.Clear();
             AllUnits.Clear();
             AllUnits2.Clear();
-            Light.Add(new Units { Name = "Кентавр-странник", Confrontation = "Свет", Price = 7, Damage = 13, Health = 35, Initiative = 7 });
-            Light.Add(new Units { Name = "Кентавр-латник", Confrontation = "Свет", Price = 6, Damage = 8, Health = 43, Initiative = 7 });
+            Light.Add(new Units { Name = "Кентавр-странник", Confrontation = "Свет", Price = 7, Damage = 13, Health = 35, Initiative = 8 });
+            Light.Add(new Units { Name = "Кентавр-латник", Confrontation = "Свет", Price = 6, Damage = 8, Health = 43, Initiative = 8 });
             Light.Add(new Units { Name = "Рыцарь", Confrontation = "Свет", Price = 9, Damage = 15, Health = 40, Initiative = 10 });
             Light.Add(new Units { Name = "Паладин", Confrontation = "Свет", Price = 5, Damage = 10, Health = 30, Initiative = 10 });
             Light.Add(new Units { Name = "Ангел", Confrontation = "Свет", Price = 12, Damage = 20, Health = 60, Initiative = 10, Big = true });
-            darkness.Add(new Units { Name = "Изверг", Confrontation = "Тьма", Price = 6, Damage = 15, Health = 50, Initiative = 10, Big = true });
+
+            darkness.Add(new Units { Name = "Изверг", Confrontation = "Тьма", Price = 6, Damage = 15, Health = 50, Initiative = 9, Big = true });
             darkness.Add(new Units { Name = "Тёмный паладин", Confrontation = "Тьма", Price = 6, Damage = 10, Health = 34, Initiative = 10 });
             darkness.Add(new Units { Name = "Рыцарь Ада", Confrontation = "Тьма", Price = 10, Damage = 15, Health = 44, Initiative = 10 });
             darkness.Add(new Units { Name = "Исчадие ада", Confrontation = "Тьма", Price = 2, Damage = 10, Health = 34, Initiative = 7, Big = true });
@@ -98,26 +99,26 @@ namespace Game
 
             while (Battle > 0)
             {
-                
 
+                AllUnits2 = AllUnits.OrderByDescending(u => u.Initiative).ToList();
                 Light2 = Light.GetRange(0, Light.Count);
                 darkness2 = darkness.GetRange(0, darkness.Count);
 
                 while (Light2.Count > 0 && darkness2.Count > 0)
                 {
                     // Перемешать общий список
-                    for (int i = AllUnits.Count - 1; i >= 1; i--)
+                    for (int i = AllUnits2.Count - 1; i >= 1; i--)
                     {
                         int j = new Random().Next(i + 1);
-                        var temp = AllUnits[j];
-                        AllUnits[j] = AllUnits[i];
-                        AllUnits[i] = temp;
+                        var temp = AllUnits2[j];
+                        AllUnits2[j] = AllUnits2[i];
+                        AllUnits2[i] = temp;
                     }
 
                     // Отсортированть общий список по убыванию
-                    AllUnits.OrderByDescending(u => u.Initiative).ToList();
+                    AllUnits2 = AllUnits2.OrderByDescending(u => u.Initiative).ToList();
 
-                    foreach (Units Unit in AllUnits.ToList())
+                    foreach (Units Unit in AllUnits2.ToList())
                     {
                         int value = new Random().Next(6);
                         if (value <= 4 && Light2.Count > 0 && darkness2.Count > 0)
@@ -128,11 +129,11 @@ namespace Game
 
                                 if (darkness2[0].Health <= 0)
                                 {
-                                    for (int i = AllUnits.Count - 1; i >= 0; i--)
+                                    for (int i = AllUnits2.Count - 1; i >= 0; i--)
                                     {
-                                        if (AllUnits[i].Name == darkness2[0].Name)
+                                        if (AllUnits2[i].Name == darkness2[0].Name)
                                         {
-                                            AllUnits.RemoveAt(i);
+                                            AllUnits2.RemoveAt(i);
 
                                         }
                                     }                                        
@@ -148,11 +149,11 @@ namespace Game
 
                                 if (Light2[0].Health <= 0)
                                 {
-                                    for (int i = AllUnits.Count - 1; i >= 0; i--)
+                                    for (int i = AllUnits2.Count - 1; i >= 0; i--)
                                     {
-                                        if (AllUnits[i].Name == Light2[0].Name)
+                                        if (AllUnits2[i].Name == Light2[0].Name)
                                         {
-                                            AllUnits.RemoveAt(i);
+                                            AllUnits2.RemoveAt(i);
 
                                         }
                                     }
