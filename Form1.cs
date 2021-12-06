@@ -30,7 +30,7 @@ namespace Game
             darkness.Add(new Units { Name = "Изверг", Confrontation = "Тьма", Price = 6, Damage = 15, Health = 50, Initiative = 10 });
             darkness.Add(new Units { Name = "Тёмный паладин", Confrontation = "Тьма", Price = 6, Damage = 10, Health = 34, Initiative = 10 });
             textBox1.Text += "Свет" + "\r\n";
-
+            // Новый
             for (int i = 0; i < Light.Count; i++) // Запись коллекции Light в textBox.
             {
 
