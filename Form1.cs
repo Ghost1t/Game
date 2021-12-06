@@ -17,6 +17,8 @@ namespace Game
         List<Units> Light2 = new();
         List<Units> darkness = new();
         List<Units> darkness2 = new();
+        List<Units> AllUnits = new();
+        List<Units> AllUnits2 = new();
 
         public Form1()
         {
@@ -25,12 +27,20 @@ namespace Game
 
         void button1_Click(object sender, EventArgs e)
         {
+            textBox1.Clear();
+            textBox2.Clear();
+            Light.Clear();
+            darkness.Clear();
+            AllUnits.Clear();
+            AllUnits2.Clear();
             Light.Add(new Units { Name = "Кентавр-странник", Confrontation = "Свет", Price = 7, Damage = 13, Health = 35, Initiative = 7 });
             Light.Add(new Units { Name = "Ангел", Confrontation = "Свет", Price = 12, Damage = 20, Health = 60, Initiative = 10 });
             darkness.Add(new Units { Name = "Изверг", Confrontation = "Тьма", Price = 6, Damage = 15, Health = 50, Initiative = 10 });
             darkness.Add(new Units { Name = "Тёмный паладин", Confrontation = "Тьма", Price = 6, Damage = 10, Health = 34, Initiative = 10 });
             textBox1.Text += "Свет" + "\r\n";
-            // Самый Новый
+
+            AllUnits = Light.Concat(darkness).ToList();
+
             for (int i = 0; i < Light.Count; i++) // Запись коллекции Light в textBox.
             {
 
@@ -47,7 +57,36 @@ namespace Game
                 textBox1.Text += darkness[i].Name.ToString() + "\r\n";
 
             }
-                       
+
+            // Перемешать общий список
+            for (int i = AllUnits.Count - 1; i >= 1; i--)
+            {
+                int j = new Random().Next(i + 1);                
+                var temp = AllUnits[j];
+                AllUnits[j] = AllUnits[i];
+                AllUnits[i] = temp;
+            }
+
+            for (int i = 0; i < AllUnits.Count; i++) // Запись коллекции AllUnits в textBox2.
+            {
+
+                textBox2.Text += AllUnits[i].Name.ToString() + "\r\n";
+
+            }
+
+            // Отсортированть общий список по убыванию
+            AllUnits2 = AllUnits.OrderByDescending(u => u.Initiative).ToList();
+
+            for (int i = 0; i < AllUnits2.Count; i++) // Запись коллекции AllUnits2 в textBox2.
+            {
+
+                textBox2.Text += AllUnits2[i].Name.ToString() + "\r\n";
+
+            }
+
+
+
+
 
 
         }
